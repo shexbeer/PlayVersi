@@ -1,14 +1,12 @@
 A Reversi game written in ActionScript. It's designed to run on any device that supports Flash/AIR, regardless of screen size.
 
-This project contains all the game logic, but it must be used with one of the platform-specific wrapper projects below:
+Project was forked from iReverse Project done by Christian Cantrell
 
-ReversiAndroid  http://github.com/cantrell/Reversi-Android 
-ReversiBrowser  http://github.com/cantrell/Reversi-Browser 
-ReversiDesktop  http://github.com/cantrell/Reversi-Desktop
-ReversiIpad     http://github.com/cantrell/Reversi-iPad 
-ReversiIphone   http://github.com/cantrell/Reversi-iPhone
-ReversiTV       http://github.com/cantrell/Reversi-TV
+http://www.github.com/cantrell/Reversi/
 
-For information on how to build this project for any platform, see the Reversi wiki:
+It's designed for Blackberry Tablet OS
 
-http://wiki.github.com/cantrell/Reversi/
+Roadmap:
+- 1.0: Publish fully functional Version to Blackberry AppWorld
+- 1.1: Add improvements to SinglePlayer AI and UI Design
+- 1.2: Add Trophies and Rewards
