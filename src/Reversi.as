@@ -89,6 +89,7 @@ package
 		private const TWO_PLAYER_MODE:String = "twoPlayerMode";
 		private const TWO_PLAYER_STRING:String = "Two Player Game";
 		private const NETWORK_PLAY_STRING:String = "Network";
+		private const CREDITS_STRING:String = "Credits";
 		private const CANCEL_STRING:String = "Cancel";
 		private const COMPUTER_COLOR_STRING:String = "Computer Plays ";
 		private const SO_KEY:String = "com.christianseidel.reversi";
@@ -715,7 +716,7 @@ package
 			if (this.isAlertShowing()) return;
 			var alert:Alert = new Alert(this.stage, this.ppi);
 			alert.addEventListener(AlertEvent.ALERT_CLICKED, onNewGameConfirm);
-			alert.show("Confirm", "Do you want to start a new game?", [SINGLE_PLAYER_STRING, TWO_PLAYER_STRING, NETWORK_PLAY_STRING, CANCEL_STRING]);
+			alert.show("Confirm", "Do you want to start a new game?", [SINGLE_PLAYER_STRING, TWO_PLAYER_STRING, NETWORK_PLAY_STRING, CREDITS_STRING, CANCEL_STRING]);
 		}
 		
 		private function onNewGameConfirm(e:AlertEvent):void
@@ -753,6 +754,23 @@ package
 				this.netConnection.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus);
 				this.netConnection.connect("rtmfp:");
 			}
+			else if (e.label == CREDITS_STRING)
+			{
+				var credits:Alert = new Alert(this.stage, this.ppi);
+				credits.addEventListener(AlertEvent.ALERT_CLICKED, onCreditsShown);
+				credits.show("Credits",
+					"Credits goes to Cristian Cantell who programmed iReverse initially\n" +
+					"Ported to Blackberry Tablet OS by Christian Seidel\n" +
+					"Please visit www.github.com/shexbeer/PlayVersi for Sourcecode\n",
+					["Close this Message."]);
+			}
+		}
+		
+		private function onCreditsShown(e:AlertEvent):void
+		{
+			var alert:Alert = e.target as Alert;
+			alert.removeEventListener(AlertEvent.ALERT_CLICKED, onCreditsShown);
+			if (e.label == "Close this Message.") return;
 		}
 		
 		private function onNetworkPlayCanceled(e:AlertEvent = null):void
