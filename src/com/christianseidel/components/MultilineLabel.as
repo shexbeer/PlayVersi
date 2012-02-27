@@ -31,80 +31,51 @@
 //  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOURCE CODE, EVEN IF
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-package com.christiancantrell.components
+package com.christianseidel.components
 {
-	import flash.display.GradientType;
 	import flash.display.Sprite;
-	import flash.events.MouseEvent;
-	import flash.filters.BevelFilter;
+	import flash.text.engine.ElementFormat;
+	import flash.text.engine.FontDescription;
+	import flash.text.engine.TextBlock;
+	import flash.text.engine.TextElement;
+	import flash.text.engine.TextLine;
 	
-	public class Button extends Sprite
+	public class MultilineLabel extends Sprite
 	{
-		private const ENABLED_COLOR:uint = 0xffffff;
-		private const DISABLED_COLOR:uint = 0x303030;
-		private const GRADIENT_COLORS:Array = [0x333333, 0x030608];
-
-		private var _enabled:Boolean;
-		private var labelText:String;
-		private var buttonLabel:Label;
+		//private var textField:TextField;
+		public static const LEADING:Number = 1.25;
+		public var textHeight:uint;
 		
-		public function Button(labelText:String, forcedWidth:int = -1, forcedHeight:int = -1)
+		public function MultilineLabel(text:String,
+									   width:uint,
+									   height:int = -1,
+									   fontWeight:String = "normal",
+									   fontColor:int = 0xffffff,
+									   fontName:String = "_sans",
+									   fontSize:uint = 18)
 		{
 			super();
+			var fontDesc:FontDescription = new FontDescription(fontName, fontWeight);
+			var elementFormat:ElementFormat = new ElementFormat(fontDesc, fontSize, fontColor);
+			var textElement:TextElement = new TextElement(text, elementFormat);
+			var textBlock:TextBlock = new TextBlock(textElement);
+			var textLine:TextLine;
+			var leading:Number = 1.25;
+			var yPos:Number = 0;
+			var totalHeight:uint = 0;
 			
-			this._enabled = true;
-			this.labelText = labelText;
-
-			this.drawLabel(ENABLED_COLOR);
-			
-			var buttonWidth:uint = (forcedWidth == -1) ? this.buttonLabel.textWidth + 6 : forcedWidth;
-			var buttonHeight:uint = (forcedHeight == -1) ? this.buttonLabel.textHeight + 6 : forcedHeight;
-			
-			this.graphics.beginGradientFill(GradientType.LINEAR, GRADIENT_COLORS, [1,1], [0,255]);
-			graphics.drawRoundRect(0, 0, buttonWidth, buttonHeight, 5, 5);
-			graphics.endFill();
-			
-			var bevel:BevelFilter = new BevelFilter(2);
-			this.filters = [bevel];
-
-			this.placeLabel();
-			
-			this.mouseChildren = false;
-			
-			this.addEventListener(MouseEvent.CLICK, onClick);
-		}
-		
-		private function drawLabel(color:uint):void
-		{
-			if (this.buttonLabel != null) this.removeChild(this.buttonLabel);
-			this.buttonLabel = new Label(labelText, "normal", color);
-		}
-		
-		private function placeLabel():void
-		{
-			this.buttonLabel.x = (this.width / 2) - (buttonLabel.textWidth / 2);
-			this.buttonLabel.y = (this.height / 2) + (buttonLabel.textHeight / 2);
-			this.addChild(buttonLabel);
-		}
-		
-		public function set enabled(enabled:Boolean):void
-		{
-			if (enabled != this._enabled)
+			while (textLine = textBlock.createTextLine(textLine, width, 0, true)) 
 			{
-				this.drawLabel((enabled) ? ENABLED_COLOR : DISABLED_COLOR);
-				this.placeLabel();
-				this._enabled = enabled;
+				this.textHeight += textLine.textHeight;
+				textLine.x = 0; 
+				textLine.y = yPos;
+				yPos += LEADING * textLine.height; 
+				this.addChild(textLine); 
+				totalHeight += yPos;
 			}
-		}
-		
-		private function onClick(e:MouseEvent):void
-		{
-			if (!this._enabled) e.stopImmediatePropagation();
-		}
-		
-		public function get label():String
-		{
-			return this.labelText;
+			
+			// Text is getting cut off by a fraction of a pixel. Round up seems to fix it. 
+			//this.height = (height != -1) ? Math.ceil(height) : totalHeight; 
 		}
 	}
 }

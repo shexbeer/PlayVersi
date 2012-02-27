@@ -33,13 +33,13 @@
 
 package
 {
-	import com.christiancantrell.components.Alert;
-	import com.christiancantrell.components.AlertEvent;
-	import com.christiancantrell.components.Label;
-	import com.christiancantrell.components.TextButton;
-	import com.christiancantrell.data.HistoryEntry;
-	import com.christiancantrell.utils.Layout;
-	import com.christiancantrell.utils.Ruler;
+	import com.christianseidel.components.Alert;
+	import com.christianseidel.components.AlertEvent;
+	import com.christianseidel.components.Label;
+	import com.christianseidel.components.TextButton;
+	import com.christianseidel.data.HistoryEntry;
+	import com.christianseidel.utils.Layout;
+	import com.christianseidel.utils.Ruler;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -79,7 +79,7 @@ package
 		private const BACKGROUND_COLOR:uint   = 0x666666;
 		private const TITLE_COLOR:uint        = 0xffffff;
 		private const TURN_GLOW_COLORS:Array  = [0xffffff, 0x000000];
-		private const TITLE:String = "iReverse";
+		private const TITLE:String = "PlayVersi";
 		private const WHITE:Boolean = true;
 		private const BLACK:Boolean = false;
 		private const PORTRAIT:String = "portrait";
@@ -91,7 +91,7 @@ package
 		private const NETWORK_PLAY_STRING:String = "Network";
 		private const CANCEL_STRING:String = "Cancel";
 		private const COMPUTER_COLOR_STRING:String = "Computer Plays ";
-		private const SO_KEY:String = "com.christiancantrell.reversi";
+		private const SO_KEY:String = "com.christianseidel.reversi";
 		private const HISTORY_KEY:String = "history";
 		private const PLAYER_MODE_KEY:String = "playerMode";
 		private const COMPUTER_COLOR_KEY:String = "computerColor";
@@ -420,6 +420,7 @@ package
 				title.filters = [this.titleShadow];
 				title.y = title.height + 4;
 				title.x = ((boardX / 2) - (title.width / 2) - 1);
+				
 
 				buttonWidth = gutterWidth - 10;
 				buttonHeight = Ruler.mmToPixels(10, this.ppi) + 4;

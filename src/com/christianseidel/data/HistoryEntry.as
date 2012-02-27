@@ -31,19 +31,11 @@
 //  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOURCE CODE, EVEN IF
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-package com.christiancantrell.components
+package com.christianseidel.data
 {
-	import flash.events.Event;
-	
-	public class AlertEvent extends Event
+	public class HistoryEntry
 	{
-		public static var ALERT_CLICKED:String = "alertClicked";
-		
-		public var label:String;
-		
-		public function AlertEvent()
-		{
-			super(ALERT_CLICKED);
-		}
+		public var board:Array;
+		public var turn:Boolean;
 	}
 }

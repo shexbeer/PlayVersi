@@ -31,28 +31,19 @@
 //  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOURCE CODE, EVEN IF
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-package com.christiancantrell.utils
+package com.christianseidel.components
 {
-	public class Ruler
+	import flash.events.Event;
+	
+	public class AlertEvent extends Event
 	{
-		public static const MIN_BUTTON_SIZE_MM:uint       = 8;
-		public static const MIN_BUTTON_SIZE_INCHES:Number = 0.27559055;
+		public static var ALERT_CLICKED:String = "alertClicked";
 		
-		/**
-		 * Convert inches to pixels.
-		 */
-		public static function inchesToPixels(inches:Number, dpi:uint):uint
-		{
-			return Math.round(dpi * inches);
-		}
+		public var label:String;
 		
-		/**
-		 * Convert millimeters to pixels.
-		 */
-		public static function mmToPixels(mm:Number, dpi:uint):uint
+		public function AlertEvent()
 		{
-			return Math.round(dpi * (mm / 25.4));
+			super(ALERT_CLICKED);
 		}
-
 	}
 }

@@ -31,65 +31,78 @@
 //  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOURCE CODE, EVEN IF
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-package com.christiancantrell.components
+package com.christianseidel.components
 {
+	import flash.display.GradientType;
 	import flash.display.Sprite;
-	import flash.text.TextField;
-	import flash.text.engine.ElementFormat;
-	import flash.text.engine.FontDescription;
-	import flash.text.engine.TextBaseline;
-	import flash.text.engine.TextBlock;
-	import flash.text.engine.TextElement;
-	import flash.text.engine.TextLine;
+	import flash.events.MouseEvent;
+	import flash.filters.BevelFilter;
 	
-	public class Label extends Sprite
+	public class TextButton extends Sprite
 	{
-		private var textLine:TextLine;
-		private var textElement:TextElement;
-		private var textBlock:TextBlock;
+		private const ENABLED_COLOR:uint = 0x333333;
+		private const DISABLED_COLOR:uint = 0x707070;
 		
-		public function Label(text:String, fontWeight:String = "normal", fontColor:int = 0xffffff, fontName:String = "_sans", fontSize:uint = 18)
+		private var _enabled:Boolean;
+		private var labelText:String;
+		private var buttonLabel:Label;
+		private var fontSize:uint;
+		
+		public function TextButton(labelText:String, fontSize:uint = 32, background:Boolean = false, forcedWidth:int = -1, forcedHeight:int = -1)
 		{
 			super();
-			var fontDesc:FontDescription = new FontDescription(fontName, fontWeight);
-			var elementFormat:ElementFormat = new ElementFormat(fontDesc, fontSize, fontColor);
-			this.textElement = new TextElement(text, elementFormat);
-			this.textBlock = new TextBlock(textElement);
-			this.textBlock.baselineZero = TextBaseline.DESCENT;
-			this.drawText();
+			
+			this._enabled = true;
+			this.labelText = labelText;
+			this.fontSize = fontSize;
+			
+			this.drawLabel(ENABLED_COLOR);
+			
+			var buttonWidth:uint = (forcedWidth == -1) ? this.buttonLabel.textWidth + 6 : forcedWidth;
+			var buttonHeight:uint = (forcedHeight == -1) ? this.buttonLabel.textHeight + 6 : forcedHeight;
+			
+			this.graphics.beginFill(0xcccccc, (background) ? .15 : 0);
+			graphics.drawRoundRect(0, 0, buttonWidth, buttonHeight, 5, 5);
+			graphics.endFill();
+			
+			this.placeLabel();
+			
+			this.mouseChildren = false;
+			
+			this.addEventListener(MouseEvent.CLICK, onClick);
 		}
 		
-		public function get textWidth():Number
+		private function drawLabel(color:uint):void
 		{
-			return this.textLine.width;
+			if (this.buttonLabel != null) this.removeChild(this.buttonLabel);
+			this.buttonLabel = new Label(labelText, "bold", color, "_sans", this.fontSize);
 		}
 		
-		public function get textHeight():Number
+		private function placeLabel():void
 		{
-			return this.textLine.textHeight;
+			this.buttonLabel.x = (this.width / 2) - (buttonLabel.textWidth / 2);
+			this.buttonLabel.y = ((this.height / 2) + (buttonLabel.textHeight / 2)) + 2;
+			this.addChild(buttonLabel);
 		}
 		
-		private function drawText():void
+		public function set enabled(enabled:Boolean):void
 		{
-			if (this.textLine != null && this.contains(this.textLine))
+			if (enabled != this._enabled)
 			{
-				this.removeChild(this.textLine);
+				this.drawLabel((enabled) ? ENABLED_COLOR : DISABLED_COLOR);
+				this.placeLabel();
+				this._enabled = enabled;
 			}
-			this.textLine = textBlock.createTextLine();
-			this.textLine.x = 0;
-			this.textLine.y = 0;
-			this.addChild(this.textLine);
 		}
 		
-		public function update(newText:String):void
+		private function onClick(e:MouseEvent):void
 		{
-			this.textElement.text = newText;
-			this.drawText();
+			if (!this._enabled) e.stopImmediatePropagation();
 		}
-
-		public function get text():String
+		
+		public function get label():String
 		{
-			return this.textElement.text;
+			return this.labelText;
 		}
 	}
 }

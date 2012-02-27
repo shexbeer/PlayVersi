@@ -31,10 +31,10 @@
 //  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOURCE CODE, EVEN IF
 //  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-package com.christiancantrell.components
+package com.christianseidel.components
 {
-	import com.christiancantrell.utils.Layout;
-	import com.christiancantrell.utils.Ruler;
+	import com.christianseidel.utils.Layout;
+	import com.christianseidel.utils.Ruler;
 	
 	import flash.display.CapsStyle;
 	import flash.display.JointStyle;
@@ -47,7 +47,7 @@ package com.christiancantrell.components
 	import flash.filters.GlowFilter;
 	import flash.ui.Keyboard;
 	
-	[Event(name=AlertEvent.ALERT_CLICKED, type="com.christiancantrell.components.AlertEvent")]
+	[Event(name=AlertEvent.ALERT_CLICKED, type="com.christianseidel.components.AlertEvent")]
 	public class Alert extends Sprite
 	{
 		private const BACKGROUND_COLOR:uint        = 0x0198e1;
