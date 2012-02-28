@@ -761,7 +761,7 @@ package
 				credits.show("Credits",
 					"Credits goes to Cristian Cantell who programmed iReverse initially\n" +
 					"Ported to Blackberry Tablet OS by Christian Seidel\n" +
-					"Please visit www.github.com/shexbeer/PlayVersi for Sourcecode\n",
+					"Please visit www.github.com/shexbeer/PlayVersi for the sourcecode\n",
 					["Close this Message."]);
 			}
 		}
