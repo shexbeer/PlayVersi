@@ -8,5 +8,7 @@ It's designed for Blackberry Tablet OS
 
 Roadmap:
 - 1.0: Publish fully functional Version to Blackberry AppWorld
-- 1.1: Add improvements to SinglePlayer AI and UI Design
-- 1.2: Add Trophies and Rewards
+- 1.1: Code Refactoring 
+- 1.2: Add improvements to SinglePlayer AI (difficulty) and UI Design
+- 1.3: New Gamemodes DoubleMove, Puzzle 
+- 1.4: Add Statistics and Achievements
